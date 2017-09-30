@@ -1,6 +1,15 @@
 #  Must be running as administrator
 
+function testif-admin {
+  $user = [Security.Principal.WindowsIdentity]::GetCurrent();
+(New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
 function test-web-conn {
+  if (-not(testif-admin)) {
+    write-host "Must be running as administrator."
+    break
+  }
   201..216 | %{
     $ErrorActionPreference = 'Stop'
     $pc  = "lab$($_)"
@@ -20,6 +29,10 @@ function test-web-conn {
 }
 
 function shutdown-comp {
+  if (-not(testif-admin)) {
+    write-host "Must be running as administrator."
+    break
+  }
   201..216 | % {
     $ErrorActionPreference = 'stop'
     try {
