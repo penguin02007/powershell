@@ -1,2 +1,2 @@
-# my-ps1
+# powershell
 All time favorite on powershell code.
