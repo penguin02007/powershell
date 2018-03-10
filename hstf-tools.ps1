@@ -46,3 +46,12 @@ function shutdown-comp {
     }
   }
 }
+
+function install-choco {
+  Set-ExecutionPolicy Bypass -Scope Process -Force;
+  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+}
+
+fucntion install-common-apps {
+  choco install sharex git flashplayerplugin flashplayeractivex adobereader vlc jre8 libreoffice putty strawberryperl gnu -y
+}
