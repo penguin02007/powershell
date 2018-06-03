@@ -53,5 +53,5 @@ function install-choco {
 }
 
 function install-common-apps {
-  choco install sharex git flashplayerplugin flashplayeractivex adobereader vlc jre8 libreoffice putty strawberryperl gnu -y
+  choco install sharex git flashplayerplugin flashplayeractivex adobereader vlc jre8 putty strawberryperl gnu firefox tigervnc -y
 }
