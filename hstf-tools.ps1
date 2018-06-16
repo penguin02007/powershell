@@ -1,18 +1,20 @@
 #  Must be running as administrator
 
+$lab_pcs = 'lab209,lab210,lab211,lab212,lab213,lab214,lab215,lab207'.Split(',')
+
 function testif-admin {
   $user = [Security.Principal.WindowsIdentity]::GetCurrent();
 (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
 
-function test-web-conn {
+function test-web-connection {
   if (-not(testif-admin)) {
     write-host "Must be running as administrator."
     break
   }
-  201..216 | %{
+  $lab_pcs | %{
     $ErrorActionPreference = 'Stop'
-    $pc  = "lab$($_)"
+    $pc  = $_
     $src = 'http://www.msn.com'
     $dst = 'c:\test-web-conn.log'
     $wc  = New-Object System.Net.WebClient
@@ -28,17 +30,30 @@ function test-web-conn {
   }
 }
 
-function shutdown-comp {
+function shutdown-lab {
   if (-not(testif-admin)) {
     write-host "Must be running as administrator."
     break
   }
-  201..216 | % {
+  $lab_pcs | % {
     $ErrorActionPreference = 'stop'
     try {
-    $pc  = "lab$($_)"  
-    write-host $pc
+    $pc  = $_
     stop-computer -comp $pc -force
+    write-host "$pc - shutdown success"
+    }
+    catch {
+    write-host "$pc - shutdown failed"
+    }
+  }
+}
+
+function restart-lab {
+  $lab_pcs | % {
+    $ErrorActionPreference = 'stop'
+    try {
+    $pc  = $_
+    restart-computer -comp $pc -force
     write-host "$pc - shutdown success"
     }
     catch {
