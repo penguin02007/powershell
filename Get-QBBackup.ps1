@@ -1,14 +1,14 @@
 function Get-QBBackup {
   $QBCwd = 'C:\options\qb\cwd'
-  $QBBackUpPath = 'C:\options\qb2017'
+  $QBBackUpPath = '\\hstf.local\public\aaOfficeMgr\qb'
   $QBBFiles = Get-ChildItem $QBBackUpPath\*QBB
   $NumOfQBBFiles = $QBBFiles.Count
   $NameOfQBFiles = $QBBFiles.Name -join "`n"
   $NumOfQBBSinceYday = ($QBBFiles | Where {$_.LastWriteTime -ge (Get-Date).AddDays(-1)}).count
   if( $QBBFiles.LastWriteTime -ge [datetime]::Today){ 
-     $BackupMessage = "SUCCESS :: Backup ran successfully."
+     $BackupMessage = "SUCCESS :: Backup ran successfully today."
   }else{
-     $BackupMessage = "WARNING :: Backup did not run."
+     $BackupMessage = "WARNING :: Backup did not run today."
   }
   $FullBackMessage ="`
 ####################################################################################`
@@ -22,12 +22,14 @@ $NameOfQBFiles
 "
   return $FullBackMessage
 }
+
 function Send-HSMail {
-  param( [string]$to,[string]$bcc )
+  $to = $args[0]
+  $bcc = $args[1]
   $from = 'quickbooks@hydesquare.org'
   $subject = 'Quickbooks Backup Status'
   $smtpserver = 'smtp-relay.gmail.com'
   $body = Get-QBBackup
   Send-MailMessage -To $to -Bcc $bcc -From $from -Subject $subject -SmtpServer $smtpserver -UseSsl -Body $body
 }
-Send-HSMail -to leochan@hydesquare.org -bcc leochan@hydesquare.org
+Send-HSMail -to $to -bcc $bcc
