@@ -23,13 +23,11 @@ $NameOfQBFiles
   return $FullBackMessage
 }
 
-function Send-HSMail {
-  $to = $args[0]
-  $bcc = $args[1]
+function Send-QBReport {
+  param( [string]$to,[string]$bcc )
   $from = 'quickbooks@hydesquare.org'
   $subject = 'Quickbooks Backup Status'
   $smtpserver = 'smtp-relay.gmail.com'
   $body = Get-QBBackup
   Send-MailMessage -To $to -Bcc $bcc -From $from -Subject $subject -SmtpServer $smtpserver -UseSsl -Body $body
 }
-Send-HSMail -to $to -bcc $bcc
