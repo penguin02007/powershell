@@ -24,8 +24,7 @@ $NameOfQBFiles
 }
 
 function Send-HSMail {
-  $to = $args[0]
-  $bcc = $args[1]
+  param( [string]$to,[string]$bcc )
   $from = 'quickbooks@hydesquare.org'
   $subject = 'Quickbooks Backup Status'
   $smtpserver = 'smtp-relay.gmail.com'
