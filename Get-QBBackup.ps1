@@ -23,7 +23,7 @@ $NameOfQBFiles
   return $FullBackMessage
 }
 
-function Send-HSMail {
+function Send-QBReport {
   param( [string]$to,[string]$bcc )
   $from = 'quickbooks@hydesquare.org'
   $subject = 'Quickbooks Backup Status'
