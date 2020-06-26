@@ -32,4 +32,3 @@ function Send-HSMail {
   $body = Get-QBBackup
   Send-MailMessage -To $to -Bcc $bcc -From $from -Subject $subject -SmtpServer $smtpserver -UseSsl -Body $body
 }
-Send-HSMail -to $to -bcc $bcc
