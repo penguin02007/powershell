@@ -1,6 +1,18 @@
+ $QBCwd = 'C:\options\qb\cwd'
+$QBBackUpPath = '\\hstf.local\public\aaOfficeMgr\qb'
+$QBBFiles = Get-ChildItem $QBBackUpPath\*QBB
+$Today = (Get-Date).Date
+$MaxAgeInDays = 14
+
+function Purge-QBBackup {
+  foreach ($file in $QBBFiles) {
+    if (($file.Name -match "Hyde Square Task Force") -and (($Today - $file.CreationTime).Days -ge $MaxAgeInDays)){
+    Remove-Item $file.FullName
+    }
+  }
+}
+
 function Get-QBBackup {
-  $QBCwd = 'C:\options\qb\cwd'
-  $QBBackUpPath = '\\hstf.local\public\aaOfficeMgr\qb'
   $QBBFiles = Get-ChildItem $QBBackUpPath\*QBB
   $NumOfQBBFiles = $QBBFiles.Count
   $NameOfQBFiles = $QBBFiles.Name -join "`n"
@@ -31,3 +43,4 @@ function Send-QBReport {
   $body = Get-QBBackup
   Send-MailMessage -To $to -Bcc $bcc -From $from -Subject $subject -SmtpServer $smtpserver -UseSsl -Body $body
 }
+ 
