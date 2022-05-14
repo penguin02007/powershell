@@ -44,3 +44,4 @@ function Send-QBReport {
   Send-MailMessage -To $to -Bcc $bcc -From $from -Subject $subject -SmtpServer $smtpserver -UseSsl -Body $body
 }
  
+ Purge-QBBackup
