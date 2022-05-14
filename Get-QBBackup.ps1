@@ -1,4 +1,4 @@
- $QBCwd = 'C:\options\qb\cwd'
+$QBCwd = 'C:\options\qb\cwd'
 $QBBackUpPath = '\\hstf.local\public\aaOfficeMgr\qb'
 $QBBFiles = Get-ChildItem $QBBackUpPath\*QBB
 $Today = (Get-Date).Date
