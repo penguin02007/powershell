@@ -68,5 +68,9 @@ function install-choco {
 }
 
 function install-common-apps {
-  choco install sharex git adobereader vlc jre8 putty strawberryperl gnu firefox googlechrome zoom dotnet4.5 python -y
+  choco install vc_dist140 vccredist2015 sharex git adobereader vlc jre8 putty strawberryperl gnu firefox googlechrome zoom dotnet4.5 python -y
+}
+
+function install-nvr-apps {
+  choco install tightvnc
 }
