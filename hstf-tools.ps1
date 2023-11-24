@@ -68,5 +68,5 @@ function install-choco {
 }
 
 function install-common-apps {
-  choco install sharex git adobereader vlc jre8 putty strawberryperl gnu firefox -y
+  choco install sharex git adobereader vlc jre8 putty strawberryperl gnu firefox googlechrome zoom dotnet4.5 python -y
 }
