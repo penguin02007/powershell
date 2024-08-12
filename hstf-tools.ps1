@@ -74,3 +74,14 @@ function install-common-apps {
 function install-nvr-apps {
   choco install tightvnc
 }
+
+function install-imageglass {
+ choco install imageglass -y
+ $extension = ".heic"
+ $imageGlassPath = "C:\Program Files\ImageGlass\ImageGlass.exe"  # Update this path if your ImageGlass is installed elsewhere
+ $progId = "ImageGlass.heic"
+
+  # Register the file extension with a ProgID
+  New-Item -Path "HKCU:\Software\Classes\$extension" -Force | Out-Null
+  Set-ItemProperty -Path "HKCU:\Software\Classes\$extension" -Name "(Default)" -Value $progId
+}
