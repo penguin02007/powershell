@@ -1,2 +1,2 @@
 # powershell
-All time favorite on powershell code.
+Code to make my life simple.
