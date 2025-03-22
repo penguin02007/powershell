@@ -1,3 +1,33 @@
+<#
+.SYNOPSIS
+    Manages QuickBooks backup files by purging old backups, verifying backup status, and sending email report.
+
+.DESCRIPTION
+    1. Purges QuickBooks backup files older than 30 days.
+    2. Checks if a backup was created last 24 hours.
+    3. Generates a summary report of available backups.
+    4. Sends an email notification with backup status.
+
+.PARAMETER to
+    Specifies the recipient email address for the backup report.
+
+.PARAMETER bcc
+    Specifies the BCC recipient email address for the backup report.
+
+.EXAMPLE
+    . C:\options\scripts\Get-QBBackup.ps1; Send-QBReport -to foo@bar.zoo -bcc foo@bar.zoo
+
+.NOTES
+    - Ensure script is run with necessary permissions to delete backup files and send emails.
+
+.AUTHOR
+    Leo Chan
+
+.VERSION
+    1.0
+
+#>
+
 $QBCwd = 'C:\options\qb\cwd'
 $QBBackUpPath = '\\hstf.local\public\aaOfficeMgr\qb'
 $QBBFiles = Get-ChildItem $QBBackUpPath\*QBB
