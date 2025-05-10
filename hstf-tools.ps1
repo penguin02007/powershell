@@ -13,6 +13,7 @@ function Install-NVR-Apps {
   } else {
     Write-Host "Hostname does not match NVR."
   }
+}
 
 function Install-ImageGlass {
  choco install imageglass -y
