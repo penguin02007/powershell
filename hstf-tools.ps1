@@ -1,10 +1,10 @@
 #  Run as Admin
 
-function install-choco {
+function Install-Choco {
   iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
-function install-nvr-apps {
+function Install-NVR-Apps {
   $hostname       = $env:COMPUTERNAME
   $nvrWorkStation = "nvr"
   if ($hostname -match $nvrWorkStation) {
@@ -14,7 +14,7 @@ function install-nvr-apps {
     Write-Host "Hostname does not match NVR."
   }
 
-function install-imageglass {
+function Install-ImageGlass {
  choco install imageglass -y
  $extension      = ".heic"
  $imageGlassPath = "C:\Program Files\ImageGlass\ImageGlass.exe"
@@ -25,18 +25,18 @@ function install-imageglass {
   Set-ItemProperty -Path "HKCU:\Software\Classes\$extension" -Name "(Default)" -Value $progId
 }
 
-function install-common-apps {
+function Install-Common-Apps {
   choco install vcredist140 vcredist2015 sharex git adobereader vlc jre8 putty firefox googlechrome zoom dotnet4.5 python -y
 }
 
-function install_all {
+function Install-All-Apps {
   [CmdletBinding(SupportsShouldProcess=$true,
   ConfirmImpact='Medium')]
   Set-ExecutionPolicy Bypass -Scope Process -Force;
 
-  install-choco
-  install-imageglass
-  install-common-apps
-  install-nvr-apps
+  Install-Choco
+  Install-ImageGlass
+  Install-Common-Apps
+  Install-NVR-Apps
   Write-Host "All applications installed successfully."
 }
