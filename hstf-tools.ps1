@@ -31,7 +31,6 @@ function Install-Common-Apps {
 }
 
 function Install-All-Apps {
-  [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
   Set-ExecutionPolicy Bypass -Scope Process -Force;
 
   Install-Choco
