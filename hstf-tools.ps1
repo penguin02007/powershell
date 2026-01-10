@@ -39,3 +39,4 @@ function Install-All-Apps {
   Install-NVR-Apps
   Write-Host "All applications installed successfully."
 }
+Install-All-Apps
