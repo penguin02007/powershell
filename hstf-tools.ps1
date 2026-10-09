@@ -1,5 +1,39 @@
 #  Run as Admin
 
+function New-Pfx {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateScript({ Test-Path $_ -PathType Leaf })]
+        [string]$PrivateKey,
+
+        [Parameter(Mandatory = $true, Position = 1)]
+        [ValidateScript({ Test-Path $_ -PathType Leaf })]
+        [string]$Certificate,
+
+        [Parameter(Position = 2)]
+        [string]$CaBundle = "vpn_hydesquare_org.ca-bundle",
+
+        [Parameter(Position = 3)]
+        [string]$OutFile = "vpn.hydesquare.org_2026.pfx"
+    )
+
+    # ValidateScript doesn't run on default values, so check the bundle here
+    if (-not (Test-Path $CaBundle -PathType Leaf)) {
+        throw "CA bundle not found: $CaBundle"
+    }
+
+    openssl pkcs12 -export `
+        -out $OutFile `
+        -inkey $PrivateKey `
+        -in $Certificate `
+        -certfile $CaBundle
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "openssl failed with exit code $LASTEXITCODE"
+    }
+}
+
 function Install-Choco {
   iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
